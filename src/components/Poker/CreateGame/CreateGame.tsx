@@ -30,7 +30,7 @@ export const CreateGame = () => {
   const history = useHistory();
   const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
   const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
-  const [gameType, setGameType] = useState(GameType.Fibonacci);
+  const [gameType, setGameType] = useState(GameType.Normal);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
 
   const handleSubmit = async (event: FormEvent) => {
