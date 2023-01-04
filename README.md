@@ -14,14 +14,6 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 
 - <https://vu-planningpoker.netlify.app//>
 
-## Home Page
-
-<img src="docs/HomePage.jpg"  />
-
-## Active Session
-
-<img src="docs/ActiveSession.jpg"  />
-
 ## Features
 
 1. Create new Session(Fibonacci or TShirt size)
