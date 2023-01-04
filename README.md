@@ -5,14 +5,14 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 
 <div align="center">
   
-[![Build and Tests](https://github.com/hellomuthu23/planning-poker/actions/workflows/build-and-tests.yml/badge.svg)](https://github.com/hellomuthu23/planning-poker/actions/workflows/build-and-tests.yml)
-[![Deploy to Firebase](https://github.com/hellomuthu23/planning-poker/actions/workflows/deploy-to-firebase-on-master.yml/badge.svg)](https://github.com/hellomuthu23/planning-poker/actions/workflows/deploy-to-firebase-on-master.yml)
+[![Build and Tests](https://github.com/adhershmnair/planningpoker/actions/workflows/build-and-tests.yml/badge.svg)](https://github.com/adhershmnair/planningpoker/actions/workflows/build-and-tests.yml)
+[![Deploy to Firebase](https://github.com/adhershmnair/planningpoker/actions/workflows/deploy-to-firebase-on-master.yml/badge.svg)](https://github.com/adhershmnair/planningpoker/actions/workflows/deploy-to-firebase-on-master.yml)
 
 </div>
 
 ## Live Site
 
-- <https://planning-poker-agile.web.app/>
+- <https://vu-planningpoker.netlify.app//>
 
 ## Home Page
 
@@ -44,7 +44,7 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 1. Clone the repo
 
     ```bash
-    git clone https://github.com/hellomuthu23/planning-poker.git
+    git clone https://github.com/adhershmnair/planningpoker.git
     ```
 
 2. Run `yarn` command to install the required npm package.

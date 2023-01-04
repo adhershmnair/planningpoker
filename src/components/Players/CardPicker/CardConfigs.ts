@@ -5,6 +5,27 @@ export interface CardConfig {
   displayValue: string;
   color: string;
 }
+export const normalCards: CardConfig[] = [
+  { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
+  { value: 1, displayValue: '1', color: '#9EC8FE' },
+  { value: 2, displayValue: '2', color: '#9EC8FE' },
+  { value: 3, displayValue: '3', color: '#A3DFF2' },
+  { value: 4, displayValue: '4', color: '#A3DFF2' },
+  { value: 5, displayValue: '5', color: '#9DD49A' },
+  { value: 6, displayValue: '6', color: '#9DD49A' },
+  { value: 7, displayValue: '7', color: '#F4DD94' },
+  { value: 8, displayValue: '8', color: '#F4DD94' },
+  { value: 9, displayValue: '9', color: '#F39893' },
+  { value: 10, displayValue: '10', color: '#F39893' },
+  { value: 12, displayValue: '12', color: '#D39893' },
+  { value: 15, displayValue: '15', color: '#D39893' },
+  { value: 16, displayValue: '16', color: '#B39893' },
+  { value: 18, displayValue: '18', color: '#B39893' },
+  { value: 20, displayValue: '20', color: '#839893' },
+  { value: -2, displayValue: '❓', color: 'var(--color-background-secondary)' },
+  { value: -1, displayValue: '-1', color: 'var(--color-background-secondary)' },
+];
+
 export const fibonacciCards: CardConfig[] = [
   { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
   { value: 1, displayValue: '1', color: '#9EC8FE' },
@@ -50,6 +71,8 @@ export const tShirtCards: CardConfig[] = [
 
 export const getCards = (gameType: GameType | undefined): CardConfig[] => {
   switch (gameType) {
+    case GameType.Normal:
+      return normalCards;
     case GameType.Fibonacci:
       return fibonacciCards;
     case GameType.ShortFibonacci:
@@ -57,7 +80,7 @@ export const getCards = (gameType: GameType | undefined): CardConfig[] => {
     case GameType.TShirt:
       return tShirtCards;
     default:
-      return fibonacciCards;
+      return normalCards;
   }
 };
 

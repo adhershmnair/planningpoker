@@ -5,7 +5,7 @@ export interface Game {
   name: string;
   average: number;
   gameStatus: Status;
-  gameType?: GameType | GameType.Fibonacci;
+  gameType?: GameType | GameType.Normal;
   createdBy: string;
   createdById: string;
   createdAt: Date;
@@ -20,6 +20,7 @@ export interface NewGame {
 }
 
 export enum GameType {
+  Normal = 'Normal',
   Fibonacci = 'Fibonacci',
   ShortFibonacci = 'ShortFibonacci',
   TShirt = 'TShirt',
