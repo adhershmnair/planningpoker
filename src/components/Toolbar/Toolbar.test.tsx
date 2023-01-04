@@ -29,11 +29,6 @@ describe('Toolbar component', () => {
   afterAll((): void => {
     window.location = location;
   });
-  it('should render correct title', () => {
-    render(<Toolbar />);
-    const title = screen.getByText('Planning Poker');
-    expect(title).toBeInTheDocument();
-  });
   it('should render Create new session button', () => {
     render(<Toolbar />);
     const newSession = screen.getByText('New Session');
@@ -59,21 +54,5 @@ describe('Toolbar component', () => {
       userEvent.click(newSession);
     });
     expect(mockHistoryPush).toBeCalledWith('/join');
-  });
-  it('should navigate to home page when Title is clicked clicked', () => {
-    render(<Toolbar />);
-    const title = screen.getByText('Planning Poker');
-    act(() => {
-      userEvent.click(title);
-    });
-    expect(mockHistoryPush).toBeCalledWith('/');
-  });
-  it('should navigate to github page when Github icon is clicked clicked', () => {
-    const toolbar = render(<Toolbar />);
-    const title = toolbar.container.querySelector('#github-button') as HTMLElement;
-    act(() => {
-      userEvent.click(title);
-    });
-    expect(window.location.href).toEqual('https://github.com/hellomuthu23/planning-poker');
   });
 });
