@@ -3,7 +3,6 @@ import AppBar from '@material-ui/core/AppBar';
 import AppToolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import GamesIcon from '@material-ui/icons/Games';
-import GithubIcon from '@material-ui/icons/GitHub';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import MergeTypeOutlinedIcon from '@material-ui/icons/MergeTypeOutlined';
 import React from 'react';
