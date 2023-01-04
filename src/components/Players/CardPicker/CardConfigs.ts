@@ -6,7 +6,6 @@ export interface CardConfig {
   color: string;
 }
 export const normalCards: CardConfig[] = [
-  { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
   { value: 1, displayValue: '1', color: '#9EC8FE' },
   { value: 2, displayValue: '2', color: '#9EC8FE' },
   { value: 3, displayValue: '3', color: '#A3DFF2' },
@@ -19,9 +18,6 @@ export const normalCards: CardConfig[] = [
   { value: 10, displayValue: '10', color: '#F39893' },
   { value: 12, displayValue: '12', color: '#D39893' },
   { value: 15, displayValue: '15', color: '#D39893' },
-  { value: 16, displayValue: '16', color: '#B39893' },
-  { value: 18, displayValue: '18', color: '#B39893' },
-  { value: 20, displayValue: '20', color: '#839893' },
   { value: -2, displayValue: '❓', color: 'var(--color-background-secondary)' },
   { value: -1, displayValue: '-1', color: 'var(--color-background-secondary)' },
 ];
