@@ -9,11 +9,13 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-top: 20px;
 }
 
 .HeaderLeftContainer {
   display: flex;
   cursor: pointer;
+  height: 3.5rem;
 }
 
 .HeaderIcon {
