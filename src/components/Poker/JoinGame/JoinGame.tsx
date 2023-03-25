@@ -1,8 +1,9 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Grow, TextField } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, CardHeader, Grow, TextField, Snackbar } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGame } from '../../../service/games';
 import { addPlayerToGame, isCurrentPlayerInGame } from '../../../service/players';
+import Alert from '@material-ui/lab/Alert';
 import './JoinGame.css';
 
 export const JoinGame = () => {
@@ -12,6 +13,8 @@ export const JoinGame = () => {
   const [joinGameId, setJoinGameId] = useState(id);
   const [playerName, setPlayerName] = useState('');
   const [gameFound, setIsGameFound] = useState(true);
+  const [showNotExistMessage, setShowNotExistMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,6 +24,11 @@ export const JoinGame = () => {
           if (await isCurrentPlayerInGame(joinGameId)) {
             history.push(`/game/${joinGameId}`);
           }
+        }else {
+          setShowNotExistMessage(true);
+          setTimeout(() => {
+            history.push('/');
+          }, 5000)
         }
       }
     }
@@ -29,6 +37,7 @@ export const JoinGame = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setLoading(true);
     if (joinGameId) {
       const res = await addPlayerToGame(joinGameId, playerName);
 
@@ -36,6 +45,7 @@ export const JoinGame = () => {
       if (res) {
         history.push(`/game/${joinGameId}`);
       }
+      setLoading(false);
     }
   };
 
@@ -74,12 +84,20 @@ export const JoinGame = () => {
               />
             </CardContent>
             <CardActions className='JoinGameCardAction'>
-              <Button type='submit' variant='contained' color='primary' className='JoinGameButton'>
+              <Button type='submit' variant='contained' color='primary' className='JoinGameButton' disabled={loading}>
                 Join
               </Button>
             </CardActions>
           </Card>
         </form>
+        <Snackbar
+          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+          open={showNotExistMessage}
+          autoHideDuration={5000}
+          onClose={() => setShowNotExistMessage(false)}
+        >
+          <Alert severity='error'>Session was deleted and doesn't exist anymore!</Alert>
+        </Snackbar>
       </div>
     </Grow>
   );
