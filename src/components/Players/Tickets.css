@@ -1,0 +1,13 @@
+.TicketsContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  justify-content: center;
+  margin: auto;
+}
+
+.TicketsContainer .MuiChip-root{
+  margin: 10px;
+}
+

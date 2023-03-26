@@ -16,7 +16,7 @@ import {
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { uniqueNamesGenerator, Config, colors, animals } from 'unique-names-generator';
 import { useHistory } from 'react-router-dom';
-import { addNewGame } from '../../../service/games';
+import { addNewGame, addNewTicket } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import './CreateGame.css';
 
@@ -40,13 +40,30 @@ export const CreateGame = () => {
 	const handleKeyUp = (e:any) => {
 		if (e.target.value !== "" && (e.keyCode === 32 || e.keyCode === 13)) {
       e.preventDefault();
-			setValues((oldState) => [...oldState, e.target.value]);
-			setTickets("");
+
+      const url = e.target.value;
+      const regex = /(CMS|PW)-\d+/; // regular expression to match "CMS-xxxx" or "PW-xxxx"
+      const match = url.match(regex); // find the first match of either "CMS-xxxx" or "PW-xxxx" in the url
+      const val =  match ? match[0] : null; // return the matched string if found, or null if not
+      if (val) {
+        setValues((oldState) => {
+          if (oldState.includes(val)) {
+            return oldState
+          }
+          return [...oldState, val]
+        });
+        setTickets("");
+      }
 		}
 	};
 
 	const handleChange = (e: React.ChangeEvent<any>) => {
 		setTickets(e.target.value);
+  };
+
+	const handleClick = ( item: string) => {
+    const url = `https://vu-pmo.atlassian.net/browse/${item}`; // create URL by combining fixed string and item variable
+    window.open(url, "_blank"); // open URL in a new browser tab
   };
 
   const handleDelete = ( item: string, index: number) =>{
@@ -59,6 +76,7 @@ export const CreateGame = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setLoading(true);
+    let tickets = [...values];
     const game: NewGame = {
       name: gameName,
       createdBy: createdBy,
@@ -67,6 +85,11 @@ export const CreateGame = () => {
       createdAt: new Date(),
     };
     const newGameId = await addNewGame(game);
+
+    tickets.forEach(async (ticket) => {
+      await addNewTicket(newGameId, ticket);
+    })
+
     if(newGameId){
       setLoading(false);
     }
@@ -127,7 +150,13 @@ export const CreateGame = () => {
             >
               <div className={"container"}>
                 {values.map((item,index) => (
-                  <Chip key={index} size="small" onDelete={()=>handleDelete(item,index)} label={item}/>
+                  <Chip
+                    key={index}
+                    size="medium"
+                    onDelete={()=>handleDelete(item,index)}
+                    onClick={()=>handleClick(item)}
+                    label={item}
+                  />
                 ))}
               </div>
               <Input

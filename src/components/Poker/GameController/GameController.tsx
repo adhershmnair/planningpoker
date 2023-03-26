@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Divider, Grow, IconButton, Snackbar, Typography } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Divider, Grow, IconButton, Snackbar, Typography, Chip } from '@material-ui/core';
 import { blue, green, orange, red } from '@material-ui/core/colors';
 import RefreshIcon from '@material-ui/icons/Autorenew';
 import ExitToApp from '@material-ui/icons/ExitToApp';
@@ -129,6 +129,10 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
         >
           <Alert severity='success'>Invite Link copied to clipboard!</Alert>
         </Snackbar>
+        <div
+          className="CardTicketDescription"
+        >
+        </div>
       </div>
     </Grow>
   );

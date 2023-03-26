@@ -80,13 +80,6 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
             ? 'Click on the card to vote'
             : 'Session not ready for Voting! Wait for moderator to start'}
         </Typography>
-        <div
-          className="CardTicketDescription"
-        >
-          <Typography className='CardContentMiddle' variant='h4'>
-            {game.tickets}
-          </Typography>
-        </div>
       </div>
     </Grow>
   );
