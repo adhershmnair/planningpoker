@@ -27,3 +27,42 @@
 .CreateGameCardAction {
   justify-content: center;
 }
+
+.HiddenRadio {
+  display: none;
+}
+
+.CreateGameChipField {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-direction: row;
+  border:2px solid lightgray;
+  padding: 18.5px 14px;
+  border-radius: 4px;
+}
+
+.CreateGameChipField > div.container {
+  gap: 6px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.CreateGameChipField > div.container > span {
+  background-color: gray;
+  padding: 1px 3px;
+  border-radius: 4px;
+}
+
+.CreateGameChipField .MuiChip-root {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.CreateGameChipField .CreateGameTextField {
+  width: 100%;
+}
