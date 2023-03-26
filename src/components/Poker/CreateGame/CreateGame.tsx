@@ -38,7 +38,7 @@ export const CreateGame = () => {
 	const [values, setValues] = useState<string[]>([]);
 
 	const handleKeyUp = (e:any) => {
-		if (e.target.value !== "" && (e.keyCode === 32 || e.keyCode === 13)) {
+		if (e.target.value !== "" && ((e.keyCode === 32 || e.keyCode === 13)  || e.type === 'blur')) {
       e.preventDefault();
 
       const url = e.target.value;
@@ -163,6 +163,7 @@ export const CreateGame = () => {
                 placeholder='https://vu-pmo.atlassian.net/browse/CMS-xxxx'
                 className='CreateGameTextField'
                 value={tickets}
+                onBlur={handleKeyUp}
                 onChange={handleChange}
                 onKeyDown={handleKeyUp}
               />
