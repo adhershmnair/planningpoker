@@ -2,8 +2,8 @@ import { Status } from './status';
 
 export interface Ticket {
   id: string;
+  value?: string;
   status: Status;
-  value?: number;
 }
 
 export interface TicketGame {

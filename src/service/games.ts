@@ -2,15 +2,19 @@ import { ulid } from 'ulid';
 import {
   addGameToStore,
   addPlayerToGameInStore,
+  addTicketToGameInStore,
   getGameFromStore,
   getPlayersFromStore,
+  getTicketsFromStore,
   streamData,
   streamPlayersFromStore,
+  streamTicketsFromStore,
   updateGameDataInStore,
   removeGameFromStore
 } from '../repository/firebase';
 import { NewGame } from '../types/game';
 import { Player } from '../types/player';
+import { Ticket } from '../types/ticket';
 import { Status } from '../types/status';
 import { resetPlayers, updatePlayerGames } from './players';
 
@@ -20,6 +24,7 @@ export const addNewGame = async (newGame: NewGame): Promise<string> => {
     id: ulid(),
     status: Status.NotStarted,
   };
+
   const gameData = {
     ...newGame,
     id: ulid(),
@@ -34,12 +39,26 @@ export const addNewGame = async (newGame: NewGame): Promise<string> => {
   return gameData.id;
 };
 
+export const addNewTicket = async (gameId: string, ticket: string): Promise<string> => {
+    const ticketValue: Ticket= {
+      id: ulid(),
+      value: ticket,
+      status: Status.NotStarted
+    }
+    await addTicketToGameInStore(gameId, ticketValue);
+    return gameId;
+};
+
 export const streamGame = (id: string) => {
   return streamData(id);
 };
 
 export const streamPlayers = (id: string) => {
   return streamPlayersFromStore(id);
+};
+
+export const streamTickets = (id: string) => {
+  return streamTicketsFromStore(id);
 };
 
 export const getGame = (id: string) => {

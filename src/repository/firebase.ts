@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Game } from '../types/game';
 import { Player } from '../types/player';
+import { Ticket } from '../types/ticket';
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FB_API_KEY,
   authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
@@ -17,6 +18,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const gamesCollectionName = 'games';
 const playersCollectionName = 'players';
+const ticketsCollectionName = 'tickets';
 const db = firebase.firestore();
 
 export const addGameToStore = async (gameId: string, data: any) => {
@@ -43,6 +45,15 @@ export const getPlayersFromStore = async (gameId: string): Promise<Player[]> => 
   return players;
 };
 
+export const getTicketsFromStore = async (gameId: string): Promise<Ticket[]> => {
+  const db = firebase.firestore();
+  const response = db.collection(gamesCollectionName).doc(gameId).collection(ticketsCollectionName);
+  const results = await response.get();
+  let tickets: Ticket[] = [];
+  results.forEach((result) => tickets.push(result.data() as Ticket));
+  return tickets;
+};
+
 export const getPlayerFromStore = async (gameId: string, playerId: string): Promise<Player | undefined> => {
   const db = firebase.firestore();
   const response = db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(playerId);
@@ -54,11 +65,26 @@ export const getPlayerFromStore = async (gameId: string, playerId: string): Prom
   return player as Player;
 };
 
+
+export const getTicketFromStore = async (gameId: string, ticketId: string): Promise<Ticket | undefined> => {
+  const db = firebase.firestore();
+  const response = db.collection(gamesCollectionName).doc(gameId).collection(ticketsCollectionName).doc(ticketId);
+  const result = await response.get();
+  let ticket = undefined;
+  if (result.exists) {
+    ticket = result.data();
+  }
+  return ticket as Ticket;
+};
+
 export const streamData = (id: string) => {
   return db.collection(gamesCollectionName).doc(id);
 };
 export const streamPlayersFromStore = (id: string) => {
   return db.collection(gamesCollectionName).doc(id).collection(playersCollectionName);
+};
+export const streamTicketsFromStore = (id: string) => {
+  return db.collection(gamesCollectionName).doc(id).collection(ticketsCollectionName);
 };
 
 export const updateGameDataInStore = async (gameId: string, data: any): Promise<boolean> => {
@@ -72,14 +98,28 @@ export const addPlayerToGameInStore = async (gameId: string, player: Player) => 
   return true;
 };
 
+export const addTicketToGameInStore = async (gameId: string, ticket: Ticket) => {
+  await db.collection(gamesCollectionName).doc(gameId).collection(ticketsCollectionName).doc(ticket.id).set(ticket);
+  return true;
+};
+
 export const removePlayerFromGameInStore = async (gameId: string, playerId: string) => {
   await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(playerId).delete();
   return true;
 };
 
+export const removeTicketFromGameInStore = async (gameId: string, ticketId: string) => {
+  await db.collection(gamesCollectionName).doc(gameId).collection(ticketsCollectionName).doc(ticketId).delete();
+  return true;
+};
+
 export const updatePlayerInStore = async (gameId: string, player: Player) => {
   await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(player.id).update(player);
+  return true;
+};
 
+export const updateTicketInStore = async (gameId: string, ticket: Ticket) => {
+  await db.collection(gamesCollectionName).doc(gameId).collection(ticketsCollectionName).doc(ticket.id).update(ticket);
   return true;
 };
 

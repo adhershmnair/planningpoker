@@ -1,10 +1,11 @@
 import { CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { streamGame, streamPlayers } from '../../service/games';
+import { streamGame, streamPlayers, streamTickets } from '../../service/games';
 import { getCurrentPlayerId } from '../../service/players';
 import { Game } from '../../types/game';
 import { Player } from '../../types/player';
+import { Ticket } from '../../types/ticket';
 import { GameArea } from './GameArea/GameArea';
 import './Poker.css';
 
@@ -13,6 +14,7 @@ export const Poker = () => {
   const history = useHistory();
   const [game, setGame] = useState<Game | undefined>(undefined);
   const [players, setPlayers] = useState<Player[] | undefined>(undefined);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
   const [loading, setIsLoading] = useState(true);
   const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(undefined);
 
@@ -57,6 +59,17 @@ export const Poker = () => {
       }
     });
 
+
+    streamTickets(id).onSnapshot((snapshot) => {
+      if(effectCleanup) {
+        const tickets: Ticket[] = [];
+        snapshot.forEach((snapshot) => {
+          tickets.push(snapshot.data() as Ticket);
+        });
+        setTickets(tickets);
+      }
+    });
+
     return () => {effectCleanup = false};
   }, [id, history]);
 
@@ -71,7 +84,7 @@ export const Poker = () => {
   return (
     <>
       {game && players && currentPlayerId ? (
-        <GameArea game={game} players={players} currentPlayerId={currentPlayerId} />
+        <GameArea game={game} players={players} tickets={tickets} currentPlayerId={currentPlayerId} />
       ) : (
         <Typography>Game not found</Typography>
       )}
