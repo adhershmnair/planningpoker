@@ -6,6 +6,7 @@ export interface Game {
   average: number;
   gameStatus: Status;
   gameType?: GameType | GameType.Normal;
+  tickets?: string | Object;
   createdBy: string;
   createdById: string;
   createdAt: Date;
@@ -16,6 +17,7 @@ export interface NewGame {
   name: string;
   gameType: string;
   createdBy: string;
+  tickets: string | Object;
   createdAt: Date;
 }
 

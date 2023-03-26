@@ -9,9 +9,12 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Chip,
+  FormControl,
+	Input,
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { uniqueNamesGenerator, Config, starWars, colors, animals } from 'unique-names-generator';
+import { uniqueNamesGenerator, Config, colors, animals } from 'unique-names-generator';
 import { useHistory } from 'react-router-dom';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
@@ -22,17 +25,36 @@ const gameNameConfig: Config = {
   separator: ' ',
   style: 'capital',
 }
-const userNameConfig: Config = {
-  dictionaries: [starWars]
-}
 
 export const CreateGame = () => {
   const history = useHistory();
   const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
-  const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
+  const [createdBy, setCreatedBy] = useState('');
   const [gameType, setGameType] = useState(GameType.Normal);
+  const [tickets, setTickets] = useState('');
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
+
+	const [values, setValues] = useState<string[]>([]);
+
+	const handleKeyUp = (e:any) => {
+		if (e.target.value !== "" && (e.keyCode === 32 || e.keyCode === 13)) {
+      e.preventDefault();
+			setValues((oldState) => [...oldState, e.target.value]);
+			setTickets("");
+		}
+	};
+
+	const handleChange = (e: React.ChangeEvent<any>) => {
+		setTickets(e.target.value);
+  };
+
+  const handleDelete = ( item: string, index: number) =>{
+    let arr = [...values]
+    arr.splice(index,1)
+    console.log(item)
+    setValues(arr)
+  }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -40,6 +62,7 @@ export const CreateGame = () => {
     const game: NewGame = {
       name: gameName,
       createdBy: createdBy,
+      tickets: tickets,
       gameType: gameType,
       createdAt: new Date(),
     };
@@ -71,7 +94,7 @@ export const CreateGame = () => {
         <Card variant='outlined' className='CreateGameCard'>
           <CardHeader
             className='CreateGameCardHeader'
-            title='Create New Session'
+            title='Create New Planning Session'
             titleTypographyProps={{ variant: 'h4' }}
           />
           <CardContent className='CreateGameCardContent'>
@@ -97,7 +120,26 @@ export const CreateGame = () => {
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) => setCreatedBy(event.target.value)}
             />
+
+            <FormControl
+              variant='outlined'
+              classes={{root: "CreateGameChipField"}}
+            >
+              <div className={"container"}>
+                {values.map((item,index) => (
+                  <Chip key={index} size="small" onDelete={()=>handleDelete(item,index)} label={item}/>
+                ))}
+              </div>
+              <Input
+                placeholder='https://vu-pmo.atlassian.net/browse/CMS-xxxx'
+                className='CreateGameTextField'
+                value={tickets}
+                onChange={handleChange}
+                onKeyDown={handleKeyUp}
+              />
+            </FormControl>
             <RadioGroup
+              className='HiddenRadio'
               aria-label='gender'
               name='gender1'
               value={gameType}
