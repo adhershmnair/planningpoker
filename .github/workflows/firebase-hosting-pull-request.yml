@@ -12,7 +12,7 @@ jobs:
         node-version: [14.x]
     steps:
       - uses: actions/checkout@v3
-      - run: yarn run build
+      - run: yarn && yarn run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
