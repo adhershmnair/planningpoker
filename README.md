@@ -12,7 +12,7 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 
 ## Live Site
 
-- <https://vu-planningpoker.netlify.app//>
+- <https://vu-planningpoker.netlify.app/>
 
 ## Features
 
