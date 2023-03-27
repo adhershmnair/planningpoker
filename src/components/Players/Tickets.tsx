@@ -1,7 +1,12 @@
-import { Grow, Chip } from '@material-ui/core';
+import { Grow, Chip, Typography } from '@material-ui/core';
 import React from 'react';
 import { Game } from '../../types/game';
 import { Ticket } from '../../types/ticket';
+import { isModerator } from '../../utils/isModerator';
+import DoneCircleIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+import { updateTicketStatus } from '../../service/tickets';
+import { Status } from '../../types/status';
+
 import './Tickets.css';
 
 interface TicketsProps {
@@ -9,6 +14,8 @@ interface TicketsProps {
   tickets: Ticket[];
   currentPlayerId: string;
 }
+
+
 
 export const Tickets: React.FC<TicketsProps> = ({ game, tickets, currentPlayerId }) => {
 
@@ -19,19 +26,56 @@ export const Tickets: React.FC<TicketsProps> = ({ game, tickets, currentPlayerId
     }
   };
   
+  const handleActive = ( item: string | undefined) => {
+    const ticket = tickets.find((obj) => obj.value === item);
+    let status = Status.NotStarted;
+    if (ticket) {
+      if (ticket.status == Status.NotStarted) {
+        status = Status.Started
+      }
+      if (ticket.status == Status.Started) {
+        status = Status.InProgress
+      }
+      if (ticket.status == Status.InProgress) {
+        status = Status.Finished
+      }
+      updateTicketStatus(game.id, ticket.id, status);
+    }
+  };
+
 
   return (
     <Grow in={true} timeout={800}>
-      <div className='TicketsContainer'>
+      <>
+      {isModerator(game.createdById, currentPlayerId) && (
+        <Typography align='center'>Click on the ticket which is estimating.</Typography>
+      )}
+      <div className={`TicketsContainer ${isModerator(game.createdById, currentPlayerId) ? 'isModerator' : 'isUser'}`}>
         {tickets.map((ticket: Ticket, index) => (
+          <div
+          className={`TicketIconText ${ticket.status.replace(/ /g, "")} `}
+          key={index}
+          >
           <Chip
-            key={index}
             size="medium"
+            variant="outlined"
             label={ticket.value}
             onClick={()=>handleClick(ticket.value)}
           />
+            {isModerator(game.createdById, currentPlayerId) && (
+            <div
+              className="TicketIcon DoneCircleIcon"
+              onClick={()=>handleActive(ticket.value)}
+            >
+              <DoneCircleIcon
+                fontSize="small"
+              />
+            </div>
+            )}
+          </div>
         ))}
       </div>
+      </>
     </Grow>
   );
 };

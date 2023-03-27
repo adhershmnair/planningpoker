@@ -42,6 +42,21 @@ export const updateTicketValue = async (gameId: string, ticketId: string, value:
   return false;
 };
 
+export const updateTicketStatus = async (gameId: string, ticketId: string, status: Status) => {
+  const ticket = await getTicketFromStore(gameId, ticketId);
+
+  if (ticket) {
+    const updatedTicket = {
+      ...ticket,
+      status: status,
+    };
+    await updateTicketInStore(gameId, updatedTicket);
+    await updateGameStatus(gameId);
+    return true;
+  }
+  return false;
+};
+
 export const getTicketRecentGames = async (): Promise<Game[]> => {
   let ticketGames: TicketGame[] = getTicketGamesFromCache();
   let games: Game[] = [];
