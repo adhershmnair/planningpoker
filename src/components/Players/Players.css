@@ -5,6 +5,7 @@
   overflow: auto;
   justify-content: center;
   margin: auto;
+  min-height: 270px;
 }
 
 .Player {
