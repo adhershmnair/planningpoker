@@ -5,9 +5,81 @@
   overflow: auto;
   justify-content: center;
   margin: auto;
+  flex-wrap: wrap;
 }
 
 .TicketsContainer .MuiChip-root{
   margin: 10px;
+  border-radius: 1px;
+  margin-right: 0;
 }
 
+.TicketsContainer .MuiChip-root:hover{
+  background: #5bc2e7;
+  text-decoration: underline;
+}
+
+.TicketsContainer .TicketIconText {
+  display: flex;
+}
+
+.TicketsContainer .TicketIcon {
+  margin: 10px;
+  margin-left: 0;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  align-items: center;
+  display: inherit;
+  padding: 0px 5px;
+  border-left: 0;
+  cursor: pointer;
+}
+
+.TicketsContainer .TicketIcon svg {
+  color: #5bc2e7;
+}
+
+/* Finished */
+.TicketsContainer .Finished .MuiChip-root {
+  background: #5bc2e7;
+  color: #fff;
+}
+.TicketsContainer .Finished .TicketIcon {
+  background-color: #5bc2e7;
+}
+.TicketsContainer .Finished .TicketIcon svg {
+  color: #fff;
+}
+
+
+/* Inprogress */
+.TicketsContainer .InProgress .MuiChip-root {
+  background: #ffc107;
+  color: #000;
+}
+.TicketsContainer .InProgress .TicketIcon {
+  background-color: #ffc107;
+}
+.TicketsContainer .InProgress .TicketIcon svg {
+  color: #000;
+}
+
+
+/* Started */
+.TicketsContainer .Started .MuiChip-root {
+  background: #129656;
+  color: #fff;
+}
+.TicketsContainer .Started .TicketIcon {
+  background-color: #129656;
+}
+.TicketsContainer .Started .TicketIcon svg {
+  color: #fff;
+}
+
+/* Normal */
+.TicketsContainer .TicketIcon:hover {
+  background-color: #fff;
+}
+.TicketsContainer .TicketIcon:hover svg {
+  color: #000;
+}
