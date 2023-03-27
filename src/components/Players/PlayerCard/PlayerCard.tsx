@@ -24,7 +24,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
   return (
     <Card
       variant='outlined'
-      className={`PlayerCard ${getCardValue(player, game) != '🤔' ? 'PlayerCardSelected' : ''}`}
+      className={`PlayerCard ${getCardValue(player, game) !== '🤔' ? 'PlayerCardSelected' : ''}`}
       style={{
         backgroundColor: getCardColor(game, player.value),
       }}
