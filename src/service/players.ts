@@ -104,14 +104,14 @@ export const removeGameFromCache = (gameId: string) => {
   updatePlayerGamesInCache(playerGames.filter((playerGame) => playerGame.gameId !== gameId));
 };
 
-export const addPlayerToGame = async (gameId: string, playerName: string): Promise<boolean> => {
+export const addPlayerToGame = async (gameId: string, playerName: string, role: string): Promise<boolean> => {
   const joiningGame = await getGameFromStore(gameId);
 
   if (!joiningGame) {
     console.log('Game not found');
     return false;
   }
-  const newPlayer = { name: playerName, id: ulid(), status: Status.NotStarted };
+  const newPlayer = { name: playerName, id: ulid(), status: Status.NotStarted, role: role };
 
   updatePlayerGames(gameId, newPlayer.id);
   await addPlayerToGameInStore(gameId, newPlayer);

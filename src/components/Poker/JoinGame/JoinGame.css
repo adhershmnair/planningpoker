@@ -1,11 +1,9 @@
 .JoinGameTextField {
-  width: 70%;
   padding-bottom: 30px;
 }
 
 .JoinGameButton {
   color:  var(--color-background);
-  width: 70%;
   border-radius: 40px;
 }
 
@@ -19,6 +17,8 @@
 }
 
 .JoinGameCardContent {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 

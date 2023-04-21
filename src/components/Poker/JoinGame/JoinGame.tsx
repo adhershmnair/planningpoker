@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Grow, TextField, Snackbar } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, CardHeader, Grow, TextField, Snackbar, FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGame } from '../../../service/games';
@@ -15,6 +15,7 @@ export const JoinGame = () => {
   const [gameFound, setIsGameFound] = useState(true);
   const [showNotExistMessage, setShowNotExistMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -39,7 +40,7 @@ export const JoinGame = () => {
     event.preventDefault();
     setLoading(true);
     if (joinGameId) {
-      const res = await addPlayerToGame(joinGameId, playerName);
+      const res = await addPlayerToGame(joinGameId, playerName, role);
 
       setIsGameFound(res);
       if (res) {
@@ -56,7 +57,7 @@ export const JoinGame = () => {
           <Card variant='outlined' className='JoinGameCard'>
             <CardHeader
               className='JoinGameCardHeader'
-              title='Join a Session'
+              title='Join a Planning Session.'
               titleTypographyProps={{ variant: 'h4' }}
             />
             <CardContent className='JoinGameCardContent'>
@@ -82,6 +83,22 @@ export const JoinGame = () => {
                 variant='outlined'
                 onChange={(event: ChangeEvent<HTMLInputElement>) => setPlayerName(event.target.value)}
               />
+
+              <FormControl
+                className='JoinGameTextField role-radio-group'
+              >
+                <RadioGroup
+                  defaultValue=""
+                  name="radio-buttons-group"
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setRole(event.target.value)}
+                >
+                  <FormControlLabel value="DP" control={<Radio color="default"/>} label="DP" />
+                  <FormControlLabel value="Developer" control={<Radio color="default"/>} label="Developer" />
+                  <FormControlLabel value="QA" control={<Radio color="default"/>} label="QA" />
+                  <FormControlLabel value="Other" control={<Radio color="default"/>} label="Other" />
+                </RadioGroup>
+              </FormControl>
+
             </CardContent>
             <CardActions className='JoinGameCardAction'>
               <Button type='submit' variant='contained' color='primary' className='JoinGameButton' disabled={loading}>
