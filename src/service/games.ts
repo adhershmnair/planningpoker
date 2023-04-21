@@ -29,6 +29,7 @@ export const addNewGame = async (newGame: NewGame): Promise<string> => {
     ...newGame,
     id: ulid(),
     average: 0,
+    devAverage: 0,
     createdById: player.id,
     gameStatus: Status.Started,
   };
@@ -75,6 +76,7 @@ export const resetGame = async (gameId: string) => {
   if (game) {
     const updatedGame = {
       average: 0,
+      devAverage: 0,
       gameStatus: Status.Started,
     };
     updateGame(gameId, updatedGame);
@@ -89,6 +91,7 @@ export const finishGame = async (gameId: string) => {
   if (game && players) {
     const updatedGame = {
       average: getAverage(players),
+      devAverage: getDevAverage(players),
       gameStatus: Status.Finished,
     };
     updateGame(gameId, updatedGame);
@@ -100,6 +103,18 @@ export const getAverage = (players: Player[]): number => {
   let numberOfPlayersPlayed = 0;
   players.forEach((player) => {
     if (player.status === Status.Finished && player.value && player.value >= 0) {
+      values = values + player.value;
+      numberOfPlayersPlayed++;
+    }
+  });
+  return Math.round(values / numberOfPlayersPlayed);
+};
+
+export const getDevAverage = (players: Player[]): number => {
+  let values = 0;
+  let numberOfPlayersPlayed = 0;
+  players.forEach((player) => {
+    if (player.status === Status.Finished && player.value && player.value >= 0 && player.role === 'Developer') {
       values = values + player.value;
       numberOfPlayersPlayed++;
     }

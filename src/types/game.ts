@@ -4,6 +4,7 @@ export interface Game {
   id: string;
   name: string;
   average: number;
+  devAverage: number;
   gameStatus: Status;
   gameType?: GameType | GameType.Normal;
   tickets?: string | Object;
