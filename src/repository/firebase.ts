@@ -132,3 +132,12 @@ export const removeGameFromStore = async (gameId: string) => {
   });
   return true;
 };
+
+export const getAllGameFromStore = async () => {
+  const db = firebase.firestore();
+  const response = db.collection(gamesCollectionName);
+  const results = await response.get();
+  let games: Game[] = [];
+  results.forEach((result) => games.push(result.data() as Game));
+  return games;
+}
