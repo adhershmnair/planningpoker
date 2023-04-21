@@ -34,6 +34,7 @@ export const CreateGame = () => {
   const [tickets, setTickets] = useState('');
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
+  const [role, setRole] = useState('');
 
 	const [values, setValues] = useState<string[]>([]);
 
@@ -69,7 +70,6 @@ export const CreateGame = () => {
   const handleDelete = ( item: string, index: number) =>{
     let arr = [...values]
     arr.splice(index,1)
-    console.log(item)
     setValues(arr)
   }
 
@@ -83,6 +83,7 @@ export const CreateGame = () => {
       tickets: tickets,
       gameType: gameType,
       createdAt: new Date(),
+      role: role,
     };
     const newGameId = await addNewGame(game);
 
@@ -143,6 +144,21 @@ export const CreateGame = () => {
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) => setCreatedBy(event.target.value)}
             />
+
+            <FormControl
+              className='role-radio-group'
+            >
+              <RadioGroup
+                defaultValue=""
+                name="radio-buttons-group"
+                onChange={(event: ChangeEvent<HTMLInputElement>) => setRole(event.target.value)}
+              >
+                <FormControlLabel value="DP" control={<Radio color="default"/>} label="DP" />
+                <FormControlLabel value="Developer" control={<Radio color="default"/>} label="Developer" />
+                <FormControlLabel value="QA" control={<Radio color="default"/>} label="QA" />
+                <FormControlLabel value="Other" control={<Radio color="default"/>} label="Other" />
+              </RadioGroup>
+            </FormControl>
 
             <FormControl
               variant='outlined'

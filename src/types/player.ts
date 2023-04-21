@@ -6,6 +6,7 @@ export interface Player {
   status: Status;
   value?: number;
   emoji?: string;
+  role?:string;
 }
 
 export interface PlayerGame {

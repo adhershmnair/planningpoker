@@ -5,7 +5,6 @@ import {
   addTicketToGameInStore,
   getGameFromStore,
   getPlayersFromStore,
-  getTicketsFromStore,
   streamData,
   streamPlayersFromStore,
   streamTicketsFromStore,
@@ -23,6 +22,7 @@ export const addNewGame = async (newGame: NewGame): Promise<string> => {
     name: newGame.createdBy,
     id: ulid(),
     status: Status.NotStarted,
+    role: newGame.role
   };
 
   const gameData = {
