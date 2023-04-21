@@ -40,11 +40,11 @@
 
 /* Finished */
 .TicketsContainer .Finished .MuiChip-root {
-  background: #5bc2e7;
+  background: #129656;
   color: #fff;
 }
 .TicketsContainer .Finished .TicketIcon {
-  background-color: #5bc2e7;
+  background-color: #129656;
 }
 .TicketsContainer .Finished .TicketIcon svg {
   color: #fff;
@@ -66,11 +66,11 @@
 
 /* Started */
 .TicketsContainer .Started .MuiChip-root {
-  background: #129656;
+  background: #5bc2e7;
   color: #fff;
 }
 .TicketsContainer .Started .TicketIcon {
-  background-color: #129656;
+  background-color: #5bc2e7;
 }
 .TicketsContainer .Started .TicketIcon svg {
   color: #fff;
