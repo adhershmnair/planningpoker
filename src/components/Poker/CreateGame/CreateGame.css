@@ -65,3 +65,32 @@
 .CreateGameChipField .CreateGameTextField {
   width: 100%;
 }
+
+.role-radio-group {
+  margin-bottom: 30px;
+}
+
+.role-radio-group > .MuiFormGroup-root {
+  flex-direction: row;
+}
+
+.role-radio-group > .MuiFormGroup-root > label {
+  border: 1px solid #d3d3d3;
+  margin: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  justify-content: center;
+}
+
+.role-radio-group > .MuiFormGroup-root > label > .MuiRadio-root,
+.role-radio-group svg {
+  display: none;
+}
+
+.role-radio-group > .MuiFormGroup-root > label >  .MuiTypography-root{
+  width: 100%;
+  padding: 10px 0;
+}
+.role-radio-group > .MuiFormGroup-root > label > .MuiRadio-root.Mui-checked + .MuiTypography-root{
+  background: #5bc2e7;
+}

@@ -30,13 +30,13 @@ export const Tickets: React.FC<TicketsProps> = ({ game, tickets, currentPlayerId
     const ticket = tickets.find((obj) => obj.value === item);
     let status = Status.NotStarted;
     if (ticket) {
-      if (ticket.status == Status.NotStarted) {
+      if (ticket.status === Status.NotStarted) {
         status = Status.Started
       }
-      if (ticket.status == Status.Started) {
+      if (ticket.status === Status.Started) {
         status = Status.InProgress
       }
-      if (ticket.status == Status.InProgress) {
+      if (ticket.status === Status.InProgress) {
         status = Status.Finished
       }
       updateTicketStatus(game.id, ticket.id, status);
@@ -48,7 +48,7 @@ export const Tickets: React.FC<TicketsProps> = ({ game, tickets, currentPlayerId
     <Grow in={true} timeout={800}>
       <>
       {isModerator(game.createdById, currentPlayerId) && (
-        <Typography align='center'>Click on the ticket which is estimating.</Typography>
+        <Typography align='center'>Change the status of ticket by clicking the checkbox.</Typography>
       )}
       <div className={`TicketsContainer ${isModerator(game.createdById, currentPlayerId) ? 'isModerator' : 'isUser'}`}>
         {tickets.map((ticket: Ticket, index) => (

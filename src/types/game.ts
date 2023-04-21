@@ -19,6 +19,7 @@ export interface NewGame {
   createdBy: string;
   tickets: string | Object;
   createdAt: Date;
+  role: string;
 }
 
 export enum GameType {
