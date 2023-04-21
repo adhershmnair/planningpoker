@@ -21,6 +21,11 @@ export const Tickets: React.FC<TicketsProps> = ({ game, tickets, currentPlayerId
 
   const handleClick = ( item: string | undefined) => {
     if (typeof item !== 'undefined') {
+      let ticket = tickets.find((obj) => obj.value === item);
+      if (ticket) {
+        let status = Status.InProgress;
+        updateTicketStatus(game.id, ticket.id, status);
+      }
       const url = `https://vu-pmo.atlassian.net/browse/${item}`; // create URL by combining fixed string and item variable
       window.open(url, "_blank"); // open URL in a new browser tab
     }
