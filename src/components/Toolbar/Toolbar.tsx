@@ -22,7 +22,7 @@ export const Toolbar = () => {
               onClick={() => history.push('/')}
             >
               <img
-                    alt='Victoria University'
+                    alt='Victoria University...'
                     className='LogoIcon'
                     src={LogoIconSvg}
                   ></img>
